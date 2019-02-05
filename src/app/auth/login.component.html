@@ -1,0 +1,15 @@
+<section class="signup-form">
+  <form fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="10px" #f="ngForm" (ngSubmit)="onSubmit(f)">
+    <mat-form-field>
+      <input matInput type="email" placeholder="Email" ngModel name="email" email required #emailInput="ngModel">
+      <mat-error *ngIf="emailInput.hasError('required')">Введите email</mat-error>
+      <mat-error *ngIf="!emailInput.hasError('required')">Неверный email</mat-error>
+    </mat-form-field>
+    <mat-form-field hintLabel="Минимум 3 символа">
+      <input matInput type="password" placeholder="Password" ngModel name="password" required minlength="3" #pwInput="ngModel">
+      <mat-hint align="end">{{pwInput.value?.length}} / 3</mat-hint>
+      <mat-error>Пароль - минимум 3 символа</mat-error>
+    </mat-form-field>
+    <button mat-raised-button color="primary" type="submit" [disabled]="f.invalid">Войти</button>
+  </form>
+</section>

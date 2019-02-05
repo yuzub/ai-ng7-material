@@ -1,0 +1,52 @@
+<div class="responsive-table">
+  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+    <ng-container matColumnDef="photo">
+      <th mat-header-cell *matHeaderCellDef>
+        <button mat-raised-button color="primary" (click)="showPhoto = !showPhoto">
+          {{showPhoto ? 'Скрыть' : 'Фото'}}
+        </button>
+      </th>
+      <td mat-cell *matCellDef="let instructor">
+        <img *ngIf="showPhoto" [src]="instructor.photoUrl" [title]="instructor.instructorName | uppercase" class="responsive-img">
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef> Инструктор </th>
+      <td mat-cell *matCellDef="let instructor">
+        <a [routerLink]="['/instructor', instructor.key]">
+          <button mat-button color="accent">{{instructor.instructorName}}</button>
+        </a>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="car">
+      <th mat-header-cell *matHeaderCellDef> Авто </th>
+      <td mat-cell *matCellDef="let instructor"> {{instructor.car}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="gear">
+      <th mat-header-cell *matHeaderCellDef> Коробка </th>
+      <td mat-cell *matCellDef="let instructor"> {{instructor.gearbox}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="price">
+      <th mat-header-cell *matHeaderCellDef> Цена </th>
+      <td mat-cell *matCellDef="let instructor"> {{instructor.price90min | currency: 'UAH' : 'symbol-narrow' :
+        '1.0-0'}}
+      </td>
+    </ng-container>
+
+    <!-- <ng-container matColumnDef="edit">
+      <mat-header-cell *matHeaderCellDef> Edit </mat-header-cell>
+      <mat-cell *matCellDef="let instructor">
+        <a [routerLink]="['/']" routerLinkActive="router-link-active">
+          <mat-icon>edit</mat-icon>
+        </a>
+      </mat-cell>
+    </ng-container> -->
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+</div>

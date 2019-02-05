@@ -1,0 +1,23 @@
+table {
+  width: 100%;
+}
+
+.responsive-table {
+  overflow-x: auto;
+}
+
+th[mat-header-cell], td[mat-cell] {
+  padding: 5px;
+  text-align: left;
+}
+
+a {
+  text-decoration: none;
+  color: white;
+}
+
+.responsive-img {
+  width: 100%;
+  max-width: 140px;
+  height: auto;
+}
