@@ -6,12 +6,19 @@
   </div>
   <div><a [routerLink]="['/']" routerLinkActive="router-link-active"> AI </a></div>
   <div fxFlex fxLayout fxLayoutAlign="flex-end" fxHide.xs>
-    <ul fxLayout fxLayoutGap="10px" class="navigation-items">
-      <li *ngIf="!isAuth"><a [routerLink]="['/signup']" routerLinkActive="router-link-active">Регистрация</a></li>
-      <li *ngIf="!isAuth"><a [routerLink]="['/login']" routerLinkActive="router-link-active">Вход</a></li>
-      <li *ngIf="isAuth"><a [routerLink]="['/instructor']" routerLinkActive="router-link-active">Инструктора</a></li>
-      <li *ngIf="isAuth"><a [routerLink]="['/links']" routerLinkActive="router-link-active">Ссылки</a></li>
-      <li *ngIf="isAuth"><a (click)="onLogout()">Выход</a></li>
-    </ul>
+    <div *ngIf="user$ | async as user; else showLogin">
+      <ul fxLayout fxLayoutGap="10px" class="navigation-items">
+        <li><a [routerLink]="['/instructor']" routerLinkActive="router-link-active">Инструктора</a></li>
+        <li><a [routerLink]="['/links']" routerLinkActive="router-link-active">Ссылки</a></li>
+        <li><a (click)="onLogout()">Выход</a></li>
+      </ul>
+    </div>
+    <ng-template #showLogin>
+      <ul fxLayout fxLayoutGap="10px" class="navigation-items">
+        <li><a [routerLink]="['/signup']" routerLinkActive="router-link-active">Регистрация</a></li>
+        <li><a [routerLink]="['/login']" routerLinkActive="router-link-active">Вход</a></li>
+      </ul>
+    </ng-template>
+
   </div>
 </mat-toolbar>

@@ -3,88 +3,58 @@ import { Router } from '@angular/router';
 
 import { AngularFireAuth } from '@angular/fire/auth';
 import { auth } from 'firebase/app';
-import { Subject } from 'rxjs';
+import { Subject, Observable } from 'rxjs';
 import { IUser, IFakeUser } from './user';
-import { AuthData } from './auth-data.model';
+import { AuthData } from './auth-data';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
   private user: IFakeUser;
-  authChange = new Subject<boolean>();
-
-  private isAuthenticated = false;
 
   constructor(private afAuth: AngularFireAuth, private router: Router) { }
 
-  fakeRegisterUser(authData: AuthData) {
-    this.user = {
-      email: authData.email,
-      uid: Math.round(Math.random() * 10000).toString()
-    };
-    this.authSuccessfully();
+  getAfUser(): Observable<firebase.User> {
+    return this.afAuth.user;
   }
 
-  fakeLogin(authData: AuthData) {
-    this.user = {
-      email: authData.email,
-      uid: Math.round(Math.random() * 10000).toString()
-    };
-    this.authSuccessfully();
-  }
-
-  fakeLogout() {
-    this.user = null;
-    this.authChange.next(false);
-    this.router.navigate(['/']);
-  }
-
-  getUser() {
-    return {...this.user};
-  }
-
-  fakeIsAuth() {
-    return this.user != null;
-  }
-
-  registerUser(authData) {
+  registerUser(authData: AuthData) {
     this.afAuth.auth.createUserWithEmailAndPassword(authData.email, authData.password)
       .then(result => {
-        console.log(result);
-        // this.authSuccessfully();
+        // console.log('user created successefully');
+        // console.log(result);
+        this.router.navigate(['/instructor']);
       })
       .catch(error => console.log(error));
   }
 
-  login(authData) {
+  login(authData: AuthData) {
     this.afAuth.auth.signInWithEmailAndPassword(authData.email, authData.password)
     .then(result => {
-      console.log(result);
-      // this.authSuccessfully();
+      // console.log('user signined successefully');
+      // console.log(result);
+      this.router.navigate(['/instructor']);
     })
     .catch(error => console.log(error));
   }
 
   loginGoogle() {
-    this.afAuth.auth.signInWithPopup(new auth.GoogleAuthProvider());
+    this.afAuth.auth.signInWithPopup(new auth.GoogleAuthProvider())
+      .then(result => {
+        // console.log('user signined successefully with Google');
+        // console.log(result);
+        this.router.navigate(['/instructor']);
+      })
+      .catch(error => console.log(error));
   }
 
   logout() {
-    this.afAuth.auth.signOut();
-
-    this.isAuthenticated = false;
-    this.authChange.next(false);
-    this.router.navigate(['/login']);
-  }
-
-  isAuth(): boolean {
-    return this.isAuthenticated;
-  }
-
-  private authSuccessfully() {
-    this.isAuthenticated = true;
-    this.authChange.next(true);
-    this.router.navigate(['/instructor']);
+    this.afAuth.auth.signOut()
+      .then(result => {
+        // console.log('user logout successefully');
+        this.router.navigate(['/']);
+      })
+      .catch(error => console.log(error));
   }
 }

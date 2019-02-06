@@ -1,5 +1,5 @@
-import { Component, OnInit, EventEmitter, Output, OnDestroy } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { Subscription, Observable } from 'rxjs';
 import { AuthService } from '../../auth/auth.service';
 
 @Component({
@@ -7,17 +7,14 @@ import { AuthService } from '../../auth/auth.service';
   templateUrl: './sidenav-list.component.html',
   styleUrls: ['./sidenav-list.component.scss']
 })
-export class SidenavListComponent implements OnInit, OnDestroy {
+export class SidenavListComponent implements OnInit {
   @Output() closeSidenav = new EventEmitter<void>();
-  isAuth: boolean;
-  authSubscription: Subscription;
+  user$: Observable<firebase.User>;
 
   constructor(private authService: AuthService) { }
 
   ngOnInit() {
-    this.authSubscription = this.authService.authChange.subscribe(authStatus => {
-      this.isAuth = authStatus;
-    });
+    this.user$ = this.authService.getAfUser();
   }
 
   onClose() {
@@ -26,10 +23,6 @@ export class SidenavListComponent implements OnInit, OnDestroy {
 
   onLogout() {
     this.onClose();
-    this.authService.fakeLogout();
-  }
-
-  ngOnDestroy() {
-    this.authSubscription.unsubscribe();
+    this.authService.logout();
   }
 }

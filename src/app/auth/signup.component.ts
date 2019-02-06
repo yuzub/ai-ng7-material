@@ -16,11 +16,13 @@ export class SignupComponent implements OnInit {
   }
 
   onSubmit(form: NgForm) {
-    // console.log(form);
-    this.authService.fakeRegisterUser({
+    this.authService.registerUser({
       email: form.value.email,
       password: form.value.password
     });
+  }
 
+  loginGoogle() {
+    this.authService.loginGoogle();
   }
 }
