@@ -5,11 +5,12 @@ import { RouterModule, Routes } from '@angular/router';
 import { InstructorListComponent } from './instructor-list.component';
 import { InstructorDetailComponent } from './instructor-detail.component';
 import { InstructorEditComponent } from './instructor-edit.component';
+import { RequireAuthGuard } from '../auth/guards/require-auth.guard';
 
 const routes: Routes = [
   {
     path: 'instructor',
-    // canActivate: [RequireAuthGuard],
+    canActivate: [RequireAuthGuard],
     children: [
       {
         path: '',
@@ -31,7 +32,7 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
   providers: [
-    // InstructorResolver
+    // InstructorResolver,
   ]
 })
 export class InstructorRoutingModule { }

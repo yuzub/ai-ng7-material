@@ -5,6 +5,8 @@ import { AuthRoutingModule } from './auth-routing.module';
 
 import { LoginComponent } from './login.component';
 import { SignupComponent } from './signup.component';
+import { RequireAuthGuard } from './guards/require-auth.guard';
+import { RequireUnauthGuard } from './guards/require-unauth.guard';
 
 @NgModule({
   declarations: [LoginComponent, SignupComponent],
@@ -12,6 +14,10 @@ import { SignupComponent } from './signup.component';
     CommonModule,
     MaterialModule,
     AuthRoutingModule
+  ],
+  providers: [
+    RequireAuthGuard,
+    RequireUnauthGuard
   ]
 })
 export class AuthModule { }

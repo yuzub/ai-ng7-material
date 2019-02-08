@@ -1,9 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { Subject, Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 import { AngularFireAuth } from '@angular/fire/auth';
 import { auth } from 'firebase/app';
-import { Subject, Observable } from 'rxjs';
+
 import { IUser, IFakeUser } from './user';
 import { AuthData } from './auth-data';
 
@@ -12,11 +14,16 @@ import { AuthData } from './auth-data';
 })
 export class AuthService {
   private user: IFakeUser;
+  private user$: Observable<firebase.User>;
+  authenticated$: Observable<boolean>;
 
-  constructor(private afAuth: AngularFireAuth, private router: Router) { }
+  constructor(private afAuth: AngularFireAuth, private router: Router) {
+    this.user$ = afAuth.user;
+    this.authenticated$ = afAuth.user.pipe(map(user => !!user));
+  }
 
   getAfUser(): Observable<firebase.User> {
-    return this.afAuth.user;
+    return this.user$;
   }
 
   registerUser(authData: AuthData) {
