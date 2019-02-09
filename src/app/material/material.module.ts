@@ -5,7 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import {
   MatButtonModule, MatIconModule, MatFormFieldModule, MatInputModule, MatTableModule,
-  MatSidenavModule, MatToolbarModule, MatListModule, MatCardModule, MatDividerModule
+  MatSidenavModule, MatToolbarModule, MatListModule, MatCardModule, MatDividerModule, MatSnackBarModule
 } from '@angular/material';
 
 @NgModule({
@@ -24,6 +24,7 @@ import {
     MatListModule,
     MatCardModule,
     MatDividerModule,
+    MatSnackBarModule
   ],
   exports: [
     FormsModule,
@@ -38,6 +39,7 @@ import {
     MatListModule,
     MatCardModule,
     MatDividerModule,
+    MatSnackBarModule
   ]
 })
 export class MaterialModule { }

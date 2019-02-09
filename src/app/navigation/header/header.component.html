@@ -4,7 +4,7 @@
       <mat-icon>menu</mat-icon>
     </button>
   </div>
-  <div><a [routerLink]="['/']" routerLinkActive="router-link-active"> AI </a></div>
+  <div><a [routerLink]="['/']" routerLinkActive="router-link-active" class="brand-logo"> AutoInstructors </a></div>
   <div fxFlex fxLayout fxLayoutAlign="flex-end" fxHide.xs>
     <div *ngIf="user$ | async as user; else showLogin">
       <ul fxLayout fxLayoutGap="10px" class="navigation-items">

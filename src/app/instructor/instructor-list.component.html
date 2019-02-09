@@ -49,4 +49,7 @@
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
+  <a [routerLink]="['/instructor/new/edit']" routerLinkActive="router-link-active" id="add-instructor">
+    <button mat-raised-button color="primary">Добавить инструктора</button>
+  </a>
 </div>
