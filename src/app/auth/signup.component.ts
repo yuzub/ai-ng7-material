@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 
+import { Observable } from 'rxjs';
 import { AuthService } from './auth.service';
+import { UIService } from '../shared/ui.service';
 
 @Component({
   selector: 'app-signup',
@@ -9,10 +11,12 @@ import { AuthService } from './auth.service';
   styleUrls: ['./signup.component.scss']
 })
 export class SignupComponent implements OnInit {
+  isLoading$: Observable<boolean>;
 
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService, private uiService: UIService) { }
 
   ngOnInit() {
+    this.isLoading$ = this.uiService.loadingStateChanged;
   }
 
   onSubmit(form: NgForm) {

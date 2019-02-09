@@ -5,7 +5,8 @@ import { FormsModule } from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import {
   MatButtonModule, MatIconModule, MatFormFieldModule, MatInputModule, MatTableModule,
-  MatSidenavModule, MatToolbarModule, MatListModule, MatCardModule, MatDividerModule, MatSnackBarModule
+  MatSidenavModule, MatToolbarModule, MatListModule, MatCardModule, MatDividerModule,
+  MatSnackBarModule, MatProgressSpinnerModule
 } from '@angular/material';
 
 @NgModule({
@@ -24,7 +25,8 @@ import {
     MatListModule,
     MatCardModule,
     MatDividerModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatProgressSpinnerModule,
   ],
   exports: [
     FormsModule,
@@ -39,7 +41,8 @@ import {
     MatListModule,
     MatCardModule,
     MatDividerModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatProgressSpinnerModule,
   ]
 })
 export class MaterialModule { }

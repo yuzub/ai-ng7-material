@@ -21,6 +21,8 @@ import { LinksComponent } from './links/links.component';
 import { HeaderComponent } from './navigation/header/header.component';
 import { SidenavListComponent } from './navigation/sidenav-list/sidenav-list.component';
 
+import { UIService } from './shared/ui.service';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -46,7 +48,7 @@ import { SidenavListComponent } from './navigation/sidenav-list/sidenav-list.com
     AppRoutingModule,
   ],
   providers: [
-    InstructorService, AuthService
+    InstructorService, AuthService, UIService
   ],
   bootstrap: [AppComponent]
 })

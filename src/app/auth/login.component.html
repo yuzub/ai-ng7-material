@@ -10,7 +10,8 @@
       <mat-hint align="end">{{pwInput.value?.length}} / 6</mat-hint>
       <mat-error>Пароль - минимум 6 символов</mat-error>
     </mat-form-field>
-    <button mat-raised-button color="primary" type="submit" [disabled]="f.invalid">Войти</button>
+    <button *ngIf="!(isLoading$ | async)" mat-raised-button color="primary" type="submit" [disabled]="f.invalid">Войти</button>
+    <mat-spinner *ngIf="isLoading$ | async"></mat-spinner>
   </form>
 </section>
 <section>
