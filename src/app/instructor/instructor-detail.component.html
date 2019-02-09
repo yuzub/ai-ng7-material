@@ -1,32 +1,45 @@
-<mat-card class="example-card" *ngIf="instructor$ | async as instructor">
-  <mat-card-header>
-    <mat-card-title>{{instructor.instructorName}}</mat-card-title>
-    <mat-card-subtitle>{{instructor.car + ' - ' + instructor.gearbox}}</mat-card-subtitle>
-  </mat-card-header>
-  <mat-card-content>
-    <img [src]="instructor.photoUrl" [title]="instructor.instructorName | uppercase" alt="Photo of an instructor">
-    <!-- <p>
-      {{instructor | json}}
-    </p> -->
-    <mat-list>
-      <mat-list-item>
-        Телефон инструктора:
-        <a href="tel:{{instructor.phone}}">
-          <button mat-raised-button color="accent">{{instructor.phone}}</button>
-        </a>
-      </mat-list-item>
-      <mat-divider></mat-divider>
-      <mat-list-item>
-        Район начала занятий: {{instructor.cityarea}}
-      </mat-list-item>
-      <mat-divider></mat-divider>
-      <mat-list-item>
-        Стоимость занятия (90 минут): {{instructor.price90min}} грн.
-      </mat-list-item>
-    </mat-list>
-  </mat-card-content>
-  <mat-card-actions>
-    <button mat-raised-button color="primary" (click)="onInsList()"><mat-icon>chevron_left</mat-icon></button>
-    <button mat-raised-button disabled color="primary" [routerLink]="['/instructor', instructor.key, 'edit']"><mat-icon>edit</mat-icon></button>
-  </mat-card-actions>
-</mat-card>
+<section class="detail-card">
+  <mat-card *ngIf="instructor$ | async as instructor">
+    <mat-card-header>
+      <mat-card-title>{{instructor.instructorName}}</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <mat-tab-group>
+        <mat-tab label="Фото">
+          <div class="img-wr">
+            <img [src]="instructor.photoUrl" [title]="instructor.instructorName | uppercase" alt="Photo of an instructor">
+          </div>
+        </mat-tab>
+        <mat-tab label="{{instructor.car + ' - ' + instructor.gearbox}}">
+          <div class="img-wr">
+            <img class="responsive-img" src="../../assets/images/aveo-h.jpg" alt="Photo of an car">
+          </div>
+        </mat-tab>
+      </mat-tab-group>
+      <mat-list>
+        <mat-list-item>
+          Телефон инструктора:
+          <a href="tel:{{instructor.phone}}">
+            <button mat-raised-button color="accent">{{instructor.phone}}</button>
+          </a>
+        </mat-list-item>
+        <mat-divider></mat-divider>
+        <mat-list-item>
+          Район начала занятий: {{instructor.cityarea}}
+        </mat-list-item>
+        <mat-divider></mat-divider>
+        <mat-list-item>
+          Стоимость занятия (90 минут): {{instructor.price90min}} грн.
+        </mat-list-item>
+      </mat-list>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-raised-button color="primary" (click)="onInsList()" title="Назад">
+        <mat-icon>chevron_left</mat-icon>
+      </button>
+      <a mat-button [disabled]="false" color="" [routerLink]="['/instructor', instructor.key, 'edit']" title="Редактировать">
+        <mat-icon>edit</mat-icon>
+      </a>
+    </mat-card-actions>
+  </mat-card>
+</section>

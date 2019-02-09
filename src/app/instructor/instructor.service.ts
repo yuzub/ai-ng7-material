@@ -14,9 +14,7 @@ export class InstructorService {
   constructor(private db: AngularFireDatabase) {
     this.insRef = this.db.list<IInstructor>('instructors');
     this.ins$ = this.insRef.snapshotChanges().pipe(
-      map(changes =>
-        changes.map(c => ({ key: c.payload.key, ...c.payload.val() }))
-      )
+      map(changes => changes.map(c => ({ key: c.payload.key, ...c.payload.val() })))
     );
   }
 
