@@ -17,7 +17,9 @@ export class InstructorEditComponent implements OnInit {
   instructor$: Observable<IInstructor>;
 
   // tslint:disable-next-line:max-line-length
-  defaultPhotoUrl = 'https://firebasestorage.googleapis.com/v0/b/instructor-dp-ua.appspot.com/o/instructors%2F8?alt=media&token=4337ceb0-a730-4ddc-8573-b6d06ed67887';
+  defaultPhotoUrl = 'https://firebasestorage.googleapis.com/v0/b/instructor-dp-ua.appspot.com/o/instructors%2Fins-default.png?alt=media&token=6367beb8-259e-48e6-9d8f-c2a409c17ade';
+  // tslint:disable-next-line:max-line-length
+  // defaultPhotoUrl = 'https://firebasestorage.googleapis.com/v0/b/instructor-dp-ua.appspot.com/o/instructors%2F8?alt=media&token=4337ceb0-a730-4ddc-8573-b6d06ed67887';
   defaultCarPhotoUrl = '';
 
   constructor(
@@ -44,11 +46,40 @@ export class InstructorEditComponent implements OnInit {
     return this.instructorService.getInstructor(key);
   }
 
-  onCancel() {}
+  onSaveInstructor2in1(instructor: IInstructor) {
+    if (!instructor.hasOwnProperty('photoUrl')) { instructor.photoUrl = this.defaultPhotoUrl; }
+    if (!instructor.hasOwnProperty('carPhotoUrl')) { instructor.carPhotoUrl = this.defaultCarPhotoUrl; }
+    const save = this.isNewInstructor
+    ? this.instructorService.createInstructor(instructor)
+    : this.instructorService.updateInstructor(instructor);
+    save
+      .then(_ => {
+        this.showMessage(`${instructor.instructorName} был ${(this.isNewInstructor) ? 'создан' : 'обновлен'}.`);
+      })
+      .catch(err => console.log(err, 'You do not have access!'));
+  }
 
-  onSave() {}
+  onDelete(instructor: IInstructor) {
+    if (this.id === 'new') {
+      // Don't delete, it was never saved.
+      this.showMessage(`Невозможно удалить, еще не было сохранено!`);
+      return;
+    } else if (confirm(`Действительно удалить инструктора: ${instructor.instructorName}?`)) {
+      this.instructorService.deleteInstructor(instructor)
+        .then(_ => {
+          this.showMessage(`${instructor.instructorName} был успешно удален!`);
+        })
+        .catch(err => console.log(err, 'You do not have access!'));
+    } else {
+      alert('Удажение отменено!');
+    }
+  }
 
-  onDelete() {}
+  showMessage(msg: string): void {
+    alert(msg);
+    console.log(msg);
+    this.router.navigate(['/instructor']);
+  }
 
   onInsList() {
     this.router.navigate(['/instructor']);

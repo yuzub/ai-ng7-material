@@ -8,12 +8,12 @@ import { map } from 'rxjs/operators';
   // {  providedIn: 'root'}
 )
 export class InstructorService {
-  insRef: AngularFireList<IInstructor>;
+  instructorsRef: AngularFireList<IInstructor>;
   ins$: Observable<IInstructor[]>; //
 
   constructor(private db: AngularFireDatabase) {
-    this.insRef = this.db.list<IInstructor>('instructors');
-    this.ins$ = this.insRef.snapshotChanges().pipe(
+    this.instructorsRef = this.db.list<IInstructor>('instructors');
+    this.ins$ = this.instructorsRef.snapshotChanges().pipe(
       map(changes => changes.map(c => ({ key: c.payload.key, ...c.payload.val() })))
     );
   }
@@ -30,20 +30,26 @@ export class InstructorService {
     return this.ins$;
   }
 
-  addInstructor(newData: IInstructor) {
-    this.insRef.push(newData);
+  createInstructor(i: IInstructor) {
+    return this.instructorsRef.push(i)
+      .then(_ => console.log(`create instructor ${i.instructorName} - success`))
+      .catch(error => console.log(error));
   }
 
-  updateInstructor(key: string, newData: IInstructor) {
-    this.insRef.update(key, newData);
+  updateInstructor(i: IInstructor) {
+    const key = i.key;
+    // after updateInstructor() method in updated instructor is added new property - instructor.key
+    // before update() delete i.key property in i object
+    delete i.key;
+    return this.instructorsRef.update(key, i)
+      .then(_ => console.log(`update ${i.instructorName} - ok`))
+      .catch(error => console.log(error));
   }
 
-  deleteInstructor(key: string) {
-    this.insRef.remove(key);
-  }
-
-  deleteEverything() {
-    this.insRef.remove();
+  deleteInstructor(i: IInstructor) {
+    return this.instructorsRef.remove(i.key)
+      .then(_ => console.log(`remove ${i.instructorName} - ok`))
+      .catch(error => console.log(error));
   }
 
   // handleError(error: any) - rename???
