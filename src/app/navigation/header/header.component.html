@@ -8,7 +8,9 @@
   <div fxFlex fxLayout fxLayoutAlign="flex-end" fxHide.xs>
     <div *ngIf="user$ | async as user; else showLogin">
       <ul fxLayout fxLayoutGap="10px" class="navigation-items">
+        <li>{{user.uid}}</li>
         <li><a [routerLink]="['/instructor']" routerLinkActive="router-link-active">Инструктора</a></li>
+        <li><a [routerLink]="['/feedback']" routerLinkActive="router-link-active">Отзывы</a></li>
         <li><a [routerLink]="['/links']" routerLinkActive="router-link-active">Ссылки</a></li>
         <li><a (click)="onLogout()">Выход</a></li>
       </ul>

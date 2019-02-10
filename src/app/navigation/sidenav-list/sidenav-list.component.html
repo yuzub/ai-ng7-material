@@ -4,6 +4,10 @@
       <mat-icon>people</mat-icon>
       <span class="nav-caption">Инструктора</span>
     </a>
+    <a mat-list-item [routerLink]="['/feedback']" routerLinkActive="router-link-active" (click)="onClose()">
+      <mat-icon>feedback</mat-icon>
+      <span class="nav-caption">Отзывы</span>
+    </a>
     <a mat-list-item [routerLink]="['/links']" routerLinkActive="router-link-active" (click)="onClose()">
       <mat-icon>link</mat-icon>
       <span class="nav-caption">Ссылки</span>

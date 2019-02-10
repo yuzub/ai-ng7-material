@@ -11,9 +11,9 @@ import { InstructorService } from './instructor.service';
   styleUrls: ['./instructor-edit.component.scss']
 })
 export class InstructorEditComponent implements OnInit {
-  isNewInstructor: boolean;
   pageTitle = '';
   id: string;
+  isNewInstructor: boolean;
   instructor$: Observable<IInstructor>;
 
   // tslint:disable-next-line:max-line-length

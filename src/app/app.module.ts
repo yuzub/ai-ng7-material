@@ -9,12 +9,15 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
 import { environment } from '../environments/environment';
 
 import { AppRoutingModule } from './app-routing.module';
-import { InstructorModule } from './instructor/instructor.module';
 import { AuthModule } from './auth/auth.module';
+import { InstructorModule } from './instructor/instructor.module';
+import { FeedbackModule } from './feedback/feedback.module';
 
 import { AppComponent } from './app.component';
-import { InstructorService } from './instructor/instructor.service';
 import { AuthService } from './auth/auth.service';
+import { InstructorService } from './instructor/instructor.service';
+import { FeedbackService } from './feedback/feedback.service';
+
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { LinksComponent } from './links/links.component';
@@ -43,12 +46,13 @@ import { UIService } from './shared/ui.service';
     // AngularFireMessagingModule, // imports
     BrowserAnimationsModule,
     MaterialModule,
-    InstructorModule,
     AuthModule,
+    InstructorModule,
+    FeedbackModule,
     AppRoutingModule,
   ],
   providers: [
-    InstructorService, AuthService, UIService
+    AuthService, InstructorService, FeedbackService, UIService
   ],
   bootstrap: [AppComponent]
 })

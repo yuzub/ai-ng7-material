@@ -1,0 +1,40 @@
+<p>
+  feedback-edit works!
+</p>
+<section class="edit-card">
+    <p>
+      {{feedback$ | async | json}}
+    </p>
+    <mat-card *ngIf="feedback$ | async as feedback">
+      <mat-card-header>
+        <mat-card-title>{{pageTitle}}</mat-card-title>
+        <mat-card-subtitle>Отзыв по инструктору - {{feedback?.instructorName}}</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <form class="edit-form" novalidate (ngSubmit)="onSaveInstructor2in1(feedback)" #feedbackForm="ngForm">
+          <div class="row-container" fxLayout="row wrap" fxLayoutGap="10px">
+            <mat-form-field>
+              <input matInput type="text" placeholder="Feedback" required [(ngModel)]="feedback.msg"
+                name="msg" #msgVar="ngModel">
+            </mat-form-field>
+          </div>
+
+          <button mat-raised-button color="accent" type="submit" [disabled]="feedbackForm.invalid" title="Сохранить">
+            <mat-icon>save</mat-icon>
+          </button>
+        </form>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-raised-button color="primary" (click)="onInsList()" title="Список инструкторов">
+          <mat-icon>chevron_left</mat-icon>
+        </button>
+        <button mat-raised-button color="" title="Отмена">
+          <mat-icon>cancel</mat-icon>
+        </button>
+
+        <button mat-raised-button color="warn" (click)="onDelete(feedback)" title="Удалить!" [disabled]="!feedback?.key">
+          <mat-icon>delete_forever</mat-icon>
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </section>
