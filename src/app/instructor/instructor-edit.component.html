@@ -1,6 +1,67 @@
-<p>
-  {{pageTitle}}
-</p>
-<p>
-  {{instructor$ | async | json}}
-</p>
+<section class="edit-card">
+  <p>
+    {{instructor$ | async | json}}
+  </p>
+  <mat-card *ngIf="instructor$ | async as instructor">
+    <mat-card-header>
+      <mat-card-title>{{pageTitle}}</mat-card-title>
+      <mat-card-subtitle>{{instructor?.instructorName}}</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <form class="edit-form">
+        <div class="row-container" fxLayout="row wrap" fxLayoutGap="10px">
+          <mat-form-field>
+            <input matInput type="text" placeholder="ФИО инструктора *" required [(ngModel)]="instructor.instructorName"
+              name="instructorName" #instructorNameVar="ngModel">
+          </mat-form-field>
+        </div>
+
+        <div class="row-container" fxLayout="row wrap" fxLayoutGap="10px">
+          <mat-form-field>
+            <input matInput type="text" placeholder="Автомобиль *" required [(ngModel)]="instructor.car" name="car"
+              #carVar="ngModel">
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-select placeholder="Коробка" [(ngModel)]="instructor.gearbox" name="gearbox" #gearboxVar="ngModel">
+              <mat-option value="механика">механика</mat-option>
+              <mat-option value="автомат">автомат</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field>
+            <input matInput type="number" placeholder="Стоимость 90 мин *" required [(ngModel)]="instructor.price90min"
+              name="price" #priceVar="ngModel">
+          </mat-form-field>
+        </div>
+
+        <div class="row-container" fxLayout="row wrap" fxLayoutGap="10px">
+          <mat-form-field>
+            <input matInput type="text" placeholder="+38-0XX-XXX-XXXX *" required pattern="\+38-0\d\d-\d\d\d\d\d\d\d"
+              [(ngModel)]="instructor.phone" name="phone" #phoneVar="ngModel">
+          </mat-form-field>
+
+          <mat-form-field>
+            <input matInput type="text" placeholder="Район начала занятия *" required [(ngModel)]="instructor.cityarea"
+              name="cityarea" #cityareaVar="ngModel">
+          </mat-form-field>
+        </div>
+
+      </form>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-raised-button color="primary" (click)="onInsList()" title="Список инструкторов">
+        <mat-icon>chevron_left</mat-icon>
+      </button>
+      <button mat-raised-button color="" (click)="onCancel()" title="Отмена">
+        <mat-icon>cancel</mat-icon>
+      </button>
+      <button mat-raised-button color="accent" (click)="onSave()" title="Сохранить">
+        <mat-icon>save</mat-icon>
+      </button>
+      <button mat-raised-button color="warn" (click)="onDelete()" title="Удалить!">
+        <mat-icon>delete_forever</mat-icon>
+      </button>
+    </mat-card-actions>
+  </mat-card>
+</section>

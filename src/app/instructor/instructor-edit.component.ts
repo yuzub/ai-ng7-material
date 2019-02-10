@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
 
 import { IInstructor } from './instructor';
@@ -20,7 +20,11 @@ export class InstructorEditComponent implements OnInit {
   defaultPhotoUrl = 'https://firebasestorage.googleapis.com/v0/b/instructor-dp-ua.appspot.com/o/instructors%2F8?alt=media&token=4337ceb0-a730-4ddc-8573-b6d06ed67887';
   defaultCarPhotoUrl = '';
 
-  constructor(private activatedRoute: ActivatedRoute, private instructorService: InstructorService) { }
+  constructor(
+    private activatedRoute: ActivatedRoute,
+    private router: Router,
+    private instructorService: InstructorService
+    ) { }
 
   ngOnInit() {
     this.activatedRoute.paramMap.subscribe(paramMap => {
@@ -40,4 +44,13 @@ export class InstructorEditComponent implements OnInit {
     return this.instructorService.getInstructor(key);
   }
 
+  onCancel() {}
+
+  onSave() {}
+
+  onDelete() {}
+
+  onInsList() {
+    this.router.navigate(['/instructor']);
+  }
 }
