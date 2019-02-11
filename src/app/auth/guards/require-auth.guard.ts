@@ -14,7 +14,7 @@ export class RequireAuthGuard implements CanActivate {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<boolean>|Promise<boolean>|boolean {
-    console.log('require-auth guard starts');
+    // console.log('require-auth guard starts');
     return this.authService.authenticated$
       .pipe(take(1))
       .pipe(tap(authenticated => {

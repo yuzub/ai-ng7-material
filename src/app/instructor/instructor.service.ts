@@ -33,7 +33,7 @@ export class InstructorService {
 
   createInstructor(i: IInstructor) {
     return this.instructorsRef.push(i)
-      .then(_ => console.log(`create instructor ${i.instructorName} - success`))
+      .then(_ => console.log(`create instructor ${i.instructorName} - ok`))
       .catch(error => console.log(error));
   }
 

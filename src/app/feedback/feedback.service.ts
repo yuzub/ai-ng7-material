@@ -11,7 +11,7 @@ export class FeedbackService {
   fbs$: Observable<IFeedback[]>; //
 
   constructor(private db: AngularFireDatabase) {
-    this.feedbacksRef = this.db.list<IFeedback>('instructors');
+    this.feedbacksRef = this.db.list<IFeedback>('feedbacks');
     this.fbs$ = this.feedbacksRef.snapshotChanges().pipe(
       map(changes => changes.map(c => ({ key: c.payload.key, ...c.payload.val() })))
     );
@@ -25,29 +25,35 @@ export class FeedbackService {
       // .catch(this.errorHandler);
   }
 
-  getInstructors(): Observable<IFeedback[]> {
+  getFeedbacks(): Observable<IFeedback[]> {
     return this.fbs$;
   }
 
-  createInstructor(i: IFeedback) {
-    return this.feedbacksRef.push(i)
-      .then(_ => console.log(`create instructor ${i.instructorName} - success`))
+  createFeedback(f: IFeedback): Promise<void> {
+    // console.log(f.uid);
+    // const itemRef = this.db.object(`feedbacks/${f.uid}`);
+    // return itemRef.set(f)
+    //   .then(_ => console.log(`create feedback - ok`))
+    //   .catch(error => console.log(error));
+
+    return this.feedbacksRef.push(f)
+      .then(_ => console.log(`create feedback - ok`))
       .catch(error => console.log(error));
   }
 
-  updateInstructor(i: IFeedback) {
-    const key = i.key;
-    // after updateInstructor() method in updated instructor is added new property - instructor.key
+  updateFeedback(f: IFeedback): Promise<void> {
+    const key = f.key;
+    // after updateFeedback() method in updated feedback is added new property - instructor.key
     // before update() delete i.key property in i object
-    delete i.key;
-    return this.feedbacksRef.update(key, i)
-      .then(_ => console.log(`update ${i.instructorName} - ok`))
+    delete f.key;
+    return this.feedbacksRef.update(key, f)
+      .then(_ => console.log(`update feedback - ok`))
       .catch(error => console.log(error));
   }
 
-  deleteInstructor(i: IFeedback) {
-    return this.feedbacksRef.remove(i.key)
-      .then(_ => console.log(`remove ${i.instructorName} - ok`))
+  deleteFeedback(f: IFeedback): Promise<void> {
+    return this.feedbacksRef.remove(f.key)
+      .then(_ => console.log(`remove feedback - ok`))
       .catch(error => console.log(error));
   }
 }

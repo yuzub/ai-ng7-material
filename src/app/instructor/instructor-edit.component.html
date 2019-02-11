@@ -1,7 +1,4 @@
 <section class="edit-card">
-  <p>
-    {{instructor$ | async | json}}
-  </p>
   <mat-card *ngIf="instructor$ | async as instructor">
     <mat-card-header>
       <mat-card-title>{{pageTitle}}</mat-card-title>

@@ -21,9 +21,9 @@ export interface IFakeUser {
 export interface IUser {
   email: string;
   uid: string;
-  displayName: string;
-  photoURL: string;
-  roles: IRoles;
+  displayName?: string;
+  photoURL?: string;
+  roles?: IRoles;
 }
 
 export class User implements IUser {

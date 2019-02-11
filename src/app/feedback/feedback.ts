@@ -1,9 +1,11 @@
 export interface IFeedback {
-  userUid: string;
-  userDisplayName: string;
-  instructorKey: string;   // to query for feedbacks related to a certain instructor
-  instructorName: string;
-  rating: number;
+  uid: string;
   msg: string;
+  userName: string;
+  userPhotoUrl?: string;
   key?: string;
+  instructorKey?: string;  //  instructorKey to query for feedbacks related to a certain instructor
+  instructorName: string;  //  instructorName to display name
+  rating: number;
+  ts: number;
 }

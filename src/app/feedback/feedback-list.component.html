@@ -1,9 +1,24 @@
-<p>
-  Отзывов пока нет.
-</p>
-<div>
-  <a mat-raised-button color="primary" [routerLink]="['/feedback/new/edit']" routerLinkActive="router-link-active"
-    id="add-feedback">
+<div *ngIf="user$ | async as user" fxLayout="row wrap" fxLayoutAlign="space-around">
+  <mat-card class="feedback-card" *ngFor="let feedback of feedbacks$ | async">
+    <mat-card-header>
+      <div *ngIf="feedback.userPhotoUrl" mat-card-avatar class="card-header-image"
+      [ngStyle]="{'background-image': 'url(' + feedback.userPhotoUrl + ')'}"></div>
+      <mat-card-title>{{feedback?.userName}}</mat-card-title>
+      <mat-card-subtitle>Отзыв об инструкторе - {{feedback?.instructorName}}</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <p>{{feedback?.msg}}</p>
+    </mat-card-content>
+    <mat-card-actions fxLayout fxLayoutAlign="space-between">
+      <span>{{feedback?.ts | date}}</span>
+      <a *ngIf="user.uid === feedback.uid" mat-mini-fab color="accent" [routerLink]="['/feedback', feedback.key, 'edit']"
+        routerLinkActive="router-link-active" title="Редактировать отзыв">
+        <mat-icon>edit</mat-icon>
+      </a>
+    </mat-card-actions>
+  </mat-card>
+
+  <a mat-raised-button color="primary" [routerLink]="['/feedback/new/edit']" routerLinkActive="router-link-active" id="add-feedback">
     Добавить отзыв
   </a>
 </div>

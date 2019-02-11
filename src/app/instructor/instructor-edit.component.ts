@@ -71,7 +71,7 @@ export class InstructorEditComponent implements OnInit {
         })
         .catch(err => console.log(err, 'You do not have access!'));
     } else {
-      alert('Удажение отменено!');
+      alert('Удаление отменено!');
     }
   }
 
